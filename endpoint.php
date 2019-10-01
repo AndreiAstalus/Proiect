@@ -21,33 +21,35 @@ class UsersController implements UsersControllerInterface
 
     public function __construct()
     {
-        $this->connection=new MysqlConfiguration()->
+        $this->connection = new MysqlConfiguration()->getConnection();
     }
 
+    public function getConnection(){
+        return $this->connection;
+    }
+    
     public function GetInformation()
     {
-        return $this->connection;
+
     }
 
     public function PostInformation()
     {
-        return $this->connection;
+
     }
 
     public function PutInformation()
     {
-        return $this->connection;
+
     }
 
     public function DeleteInformation()
     {
-        return $this->connection;
+
     }
 
-    public function getUser($username)
+   /* public function getUser($username)
     {
-
-        $username = new MysqlConfiguration();
 
         $sql = "SELECT FROM `user` (`username`)";
 
@@ -58,8 +60,9 @@ class UsersController implements UsersControllerInterface
         } else {
             echo "error: " . $sql . "<br>" . $username->getUser()->error;
         }
-    }
+    } */
 }
+
 
 
 ?>
