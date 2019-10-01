@@ -18,7 +18,7 @@ class MysqlConfiguration
         return $this->connection;
     }
 
-    public function CheckConnection()
+    public function checkConnection()
     {
         if (!$this->connection) {
             die("Connection failed: " . mysqli_connect_error());
