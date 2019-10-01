@@ -1,46 +1,63 @@
 <?php
 
+include "MysqlConfiguration.php";
 
-interface UsersControllerInterface{
+interface UsersControllerInterface
+{
     public function GetInformation();
+
     public function PostInformation();
+
     public function PutInformation();
+
     public function DeleteInformation();
 
 }
 
-class UsersController implements UsersControllerInterface  {
+class UsersController implements UsersControllerInterface
+{
 
-private $configuration;
+    private $connection;
 
-
-    public function GetInformation(){
-    return $this->configuration;
+    public function __construct()
+    {
+        $this->connection=new MysqlConfiguration()->
     }
 
-    public function PostInformation(){
-    return $this->configuration;
+    public function GetInformation()
+    {
+        return $this->connection;
     }
 
-    public function PutInformation(){
-        return $this->configuration;
+    public function PostInformation()
+    {
+        return $this->connection;
     }
 
-    public function DeleteInformation(){
-        return $this->configuration;
+    public function PutInformation()
+    {
+        return $this->connection;
     }
 
-    public function getUser($username){
+    public function DeleteInformation()
+    {
+        return $this->connection;
+    }
 
-        $username= new MysqlConfiguration();
+    public function getUser($username)
+    {
 
-        $sql= "SELECT FROM `user` (`username`)";
+        $username = new MysqlConfiguration();
 
-        if($username->getUser()->query($sql) === TRUE) {
+        $sql = "SELECT FROM `user` (`username`)";
+
+        if ($username->getUser()->query($sql) === TRUE) {
 
             var_dump($sql);
 
-        } else { echo "error: " . $sql . "<br>" . $username->getUser()->error;}
+        } else {
+            echo "error: " . $sql . "<br>" . $username->getUser()->error;
+        }
     }
 }
 
