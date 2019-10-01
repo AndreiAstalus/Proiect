@@ -4,12 +4,6 @@ class MysqlConfiguration
 {
     private $connection;
 
-    public function getConnection(){
-        return $this->connection;
-    }
-
-// Create connection
-
     public function __construct()
     {
          $servername = "localhost";
@@ -20,24 +14,18 @@ class MysqlConfiguration
 
     }
 
-}
-
-// Check connection
-$mysqlConfiguration = new MysqlConfiguration();
-
-if (!$mysqlConfiguration) {
-    die("Connection failed: " . mysqli_connect_error());
-        }
-else {
-    echo "Connected successfully";
+    public function getConnection(){
+        return $this->connection;
     }
 
-
-/*$sql= "INSERT INTO `user` (`nume`, `prenume`) VALUES ('Andrei',' GIGI')";
-if($mysqlConfiguration->getConnection()->query($sql) === TRUE) {
-    echo "new record created";
-} else { echo "error: " . $sql . "<br>" . $mysqlConfiguration->getConnection()->error;
-} */
-
+    public function CheckConnection(){
+        if ($this->$connection) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        else {
+            echo "Connected successfully";
+        }
+    }
+}
 
 ?>
