@@ -28,14 +28,19 @@ class UsersController implements UsersControllerInterface
 
     public function getUsers()
     {
-        $sql = "SELECT * FROM user";
+        $sql = "SELECT `username` FROM user";
 
-        if ($username=$this->getConnection()->query($sql)) {
+        if ($username = $this->getConnection()->query($sql)) {
 
-            var_dump($username);
+            while ($row = $username->fetch_array()) {
+
+                echo $row['username'];
+
+            }
+            $username->free();
 
         } else {
-            echo "error: " . $sql . "<br>" . $username->getConnection()->error;
+            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
         }
 
     }
@@ -44,23 +49,39 @@ class UsersController implements UsersControllerInterface
     {
         $sql = "INSERT INTO `user` (`username`) VALUE ('GIGEL')";
 
-        if ($username=$this->getConnection()->query($sql)) {
+        if ($username = $this->getConnection()->query($sql)) {
 
             var_dump($username);
 
         } else {
-            echo "error: " . $sql . "<br>" . $username->getConnection()->error;
+            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
         }
     }
 
     public function putUsers()
     {
+        $sql = "UPDATE `user` SET `id` = '2' WHERE `username` = 'GIGEL'";
 
+        if ($username = $this->getConnection()->query($sql)) {
+
+            var_dump($username);
+
+        } else {
+            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
+        }
     }
 
     public function deleteUsers()
     {
+        $sql = "DELETE FROM `user` WHERE `id` = '2'";
 
+        if ($username = $this->getConnection()->query($sql)) {
+
+            var_dump($username);
+
+        } else {
+            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
+        }
     }
 
 
@@ -68,11 +89,14 @@ class UsersController implements UsersControllerInterface
 
 $userController = new UsersController();
 
-var_dump($userController->getConnection());
+//var_dump($userController->getConnection());
 
 var_dump($userController->getUsers());
 
 var_dump($userController->postUsers());
 
+var_dump($userController->putUsers());
+
+var_dump($userController->deleteUsers());
 
 ?>
