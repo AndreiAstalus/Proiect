@@ -88,7 +88,7 @@ class UsersController implements UsersControllerInterface
 
         $user=$_GET['username'];
 
-        $sql = "SELECT . '$user' . FROM user";
+        $sql = "SELECT " . $user . "  FROM user";
 
         if ($sqlQuery = $this->getConnection()->query($sql)) {
 
