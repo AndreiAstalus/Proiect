@@ -28,19 +28,19 @@ class UsersController implements UsersControllerInterface
 
     public function getUsers()
     {
-        $sql = "SELECT `username` FROM user";
+        $sql = "SELECT * FROM user";
 
-        if ($username = $this->getConnection()->query($sql)) {
+        if ($sqlQuery = $this->getConnection()->query($sql)) {
 
-            while ($row = $username->fetch_array()) {
+            while ($row = $sqlQuery->fetch_array()) {
 
                 echo $row['username'];
 
             }
-            $username->free();
+            $sqlQuery->free();
 
         } else {
-            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
+            echo "error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error;
         }
 
     }
@@ -49,12 +49,12 @@ class UsersController implements UsersControllerInterface
     {
         $sql = "INSERT INTO `user` (`username`) VALUE ('GIGEL')";
 
-        if ($username = $this->getConnection()->query($sql)) {
+        if ($sqlQuery = $this->getConnection()->query($sql)) {
 
-            var_dump($username);
+            var_dump($sqlQuery);
 
         } else {
-            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
+            echo "error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error;
         }
     }
 
@@ -62,12 +62,12 @@ class UsersController implements UsersControllerInterface
     {
         $sql = "UPDATE `user` SET `id` = '2' WHERE `username` = 'GIGEL'";
 
-        if ($username = $this->getConnection()->query($sql)) {
+        if ($sqlQuery = $this->getConnection()->query($sql)) {
 
-            var_dump($username);
+            var_dump($sqlQuery);
 
         } else {
-            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
+            echo "error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error;
         }
     }
 
@@ -75,15 +75,35 @@ class UsersController implements UsersControllerInterface
     {
         $sql = "DELETE FROM `user` WHERE `id` = '2'";
 
-        if ($username = $this->getConnection()->query($sql)) {
+        if ($sqlQuery = $this->getConnection()->query($sql)) {
 
-            var_dump($username);
+            var_dump($sqlQuery);
 
         } else {
-            echo "error: " . $sql . "<br>" . $username = $this->getConnection()->error;
+            echo "error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error;
         }
     }
 
+    public function getUser(){
+
+        $user=$_GET['username'];
+
+        $sql = "SELECT . '$user' . FROM user";
+
+        if ($sqlQuery = $this->getConnection()->query($sql)) {
+
+            while ($row = $sqlQuery->fetch_array()) {
+
+                echo $row[$user];
+
+            }
+            $sqlQuery->free();
+
+        } else {
+            echo "error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error;
+        }
+
+    }
 
 }
 
@@ -98,5 +118,7 @@ var_dump($userController->postUsers());
 var_dump($userController->putUsers());
 
 var_dump($userController->deleteUsers());
+
+var_dump($userController->getUser());
 
 ?>
