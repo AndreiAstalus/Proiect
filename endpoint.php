@@ -1,68 +1,78 @@
 <?php
 
-include "MysqlConfiguration.php";
-
 interface UsersControllerInterface
 {
-    public function GetInformation();
+    public function getUsers();
 
-    public function PostInformation();
+    public function postUsers();
 
-    public function PutInformation();
+    public function putUsers();
 
-    public function DeleteInformation();
+    public function deleteUsers();
 
 }
 
 class UsersController implements UsersControllerInterface
 {
-
     private $connection;
 
     public function __construct()
     {
-        $this->connection = new MysqlConfiguration()->getConnection();
+        $this->connection = (new MysqlConfiguration())->getConnection();
     }
 
-    public function getConnection(){
+    public function getConnection()
+    {
         return $this->connection;
     }
-    
-    public function GetInformation()
+
+    public function getUsers()
     {
+        $sql = "SELECT * FROM user";
 
-    }
+        if ($username=$this->getConnection()->query($sql)) {
 
-    public function PostInformation()
-    {
-
-    }
-
-    public function PutInformation()
-    {
-
-    }
-
-    public function DeleteInformation()
-    {
-
-    }
-
-   /* public function getUser($username)
-    {
-
-        $sql = "SELECT FROM `user` (`username`)";
-
-        if ($username->getUser()->query($sql) === TRUE) {
-
-            var_dump($sql);
+            var_dump($username);
 
         } else {
-            echo "error: " . $sql . "<br>" . $username->getUser()->error;
+            echo "error: " . $sql . "<br>" . $username->getConnection()->error;
         }
-    } */
+
+    }
+
+    public function postUsers()
+    {
+        $sql = "INSERT INTO `user` (`username`) VALUE ('GIGEL')";
+
+        if ($username=$this->getConnection()->query($sql)) {
+
+            var_dump($username);
+
+        } else {
+            echo "error: " . $sql . "<br>" . $username->getConnection()->error;
+        }
+    }
+
+    public function putUsers()
+    {
+
+    }
+
+    public function deleteUsers()
+    {
+
+    }
+
+
 }
 
+$userController = new UsersController();
+
+var_dump($userController->getConnection());
+
+var_dump($userController->getUsers());
+
+var_dump($userController->postUsers());
 
 
 ?>
