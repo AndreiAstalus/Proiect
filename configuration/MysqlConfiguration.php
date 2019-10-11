@@ -9,7 +9,7 @@ class MysqlConfiguration
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "test";
+        $dbname = "db";
         $this->connection = mysqli_connect($servername, $username, $password, $dbname);
     }
 

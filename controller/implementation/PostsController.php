@@ -1,11 +1,11 @@
 <?php
 
 require "../../configuration/MysqlConfiguration.php";
-require "../interface/UsersControllerInterface.php";
+require "../interface/PostsControllerInterface.php";
 
 include "../../utils/Utils.php";
 
-class UsersController implements UsersControllerInterface
+class PostsController implements PostsControllerInterface
 {
     private $connection;
 
@@ -19,9 +19,9 @@ class UsersController implements UsersControllerInterface
         return $this->connection;
     }
 
-    public function getUsers()
+    public function getPosts()
     {
-        $sql = "SELECT * FROM user";
+        $sql = "SELECT * FROM posts";
 
         if ($sqlQuery = $this->getConnection()->query($sql)) {
             // Get query result values
@@ -36,14 +36,12 @@ class UsersController implements UsersControllerInterface
             die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
         }
     }
-
-
-    public function getUser()
+    public function getPost()
     {
         $queryParameters = getQueryParameters();
 
-        if (($username = ($queryParameters->username)) != null) {
-            $sql = "SELECT * FROM user WHERE username = '" . $username . "'";
+        if (($titlu = ($queryParameters->titlu)) != null) {
+            $sql = "SELECT * FROM posts WHERE titlu = '" . $titlu . "'";
 
             if ($sqlQuery = $this->getConnection()->query($sql)) {
                 // Get query result values
@@ -59,61 +57,61 @@ class UsersController implements UsersControllerInterface
             }
         }
     }
-
-    public function postUsers()
+    public function postPosts()
     {
         $requestBody = getRequestBody();
 
-        $sql = "INSERT INTO `user`(`id`, `username`, `password`, `data_creare_user`)
+        $sql = "INSERT INTO `posts`(`id_post`, `titlu`, `context`, `data_creare_post`, `user_post`)
                     VALUES (
                     '',
-                    '" . $requestBody->username . "',
-                    '" . $requestBody->password . "',
-                    '" . date('Y-m-d') . "')";
+                    '" . $requestBody->titlu . "',
+                    '" . $requestBody->context . "',
+                    '" . date('Y-m-d') . "',
+                    '" . $requestBody->user_post . "')";
 
-        if (($user = $requestBody) != null) {
+        if (($post = $requestBody) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
 
                 // Close database connection
                 $sqlQuery->free();
 
-                return $user;
+                return $post;
             } else {
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
             }
         }
     }
-
-    public function putUsers()
+    public function updatePosts()
     {
         $requestBody = getRequestBody();
         $queryParameters = getQueryParameters();
 
-        $sql = "UPDATE `user` 
-                SET `username` = '" . $requestBody->username . "',  
-                    `password` = '" . $requestBody->password . "'
-                WHERE `username` = '" . $queryParameters->username . "'";
+        $sql = "UPDATE `posts` 
+                SET `titlu` = '" . $requestBody->titlu . "',  
+                    `context` = '" . $requestBody->context . "',
+                    `data_modif_post` = '" . date('Y-m-d') . "'
+                WHERE `id_post` = '" . $queryParameters->id_post . "'";
 
-        if (($user = $requestBody) != null) {
+        if (($id_post = $requestBody) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
 
                 // Close database connection
                 $sqlQuery->free();
 
-                return $user;
+                return $id_post;
             } else {
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
             }
         }
     }
 
-    public function deleteUsers()
+    public function deletePosts()
     {
         $queryParameters = getQueryParameters();
 
-        $sql = "DELETE FROM `user` WHERE `username` = '" . $queryParameters->username . "'";
+        $sql = "DELETE FROM `posts` WHERE `id_post` = '" . $queryParameters->id_post . "'";
 
-        if (($username = ($queryParameters->username)) != null) {
+        if (($id_post = ($queryParameters->id_post)) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
                 return null;
             } else {
@@ -121,9 +119,7 @@ class UsersController implements UsersControllerInterface
             }
         }
     }
-
-
 }
 
-$user=new UsersController();
-vd($user->getUser());
+$post = new PostsController();
+vd($post->getPost());
