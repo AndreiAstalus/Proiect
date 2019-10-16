@@ -40,8 +40,8 @@ class PostsController implements PostsControllerInterface
     {
         $queryParameters = getQueryParameters();
 
-        if (($titlu = ($queryParameters->titlu)) != null) {
-            $sql = "SELECT * FROM posts WHERE titlu = '" . $titlu . "'";
+        if (($title = ($queryParameters->title)) != null) {
+            $sql = "SELECT * FROM posts WHERE title = '" . $title . "'";
 
             if ($sqlQuery = $this->getConnection()->query($sql)) {
                 // Get query result values
@@ -61,11 +61,11 @@ class PostsController implements PostsControllerInterface
     {
         $requestBody = getRequestBody();
 
-        $sql = "INSERT INTO `posts`(`id_post`, `titlu`, `context`, `data_creare_post`, `user_post`)
+        $sql = "INSERT INTO `posts`(`id_post`, `title`, `body`, `date_created_at`, `user_post`)
                     VALUES (
                     '',
-                    '" . $requestBody->titlu . "',
-                    '" . $requestBody->context . "',
+                    '" . $requestBody->title . "',
+                    '" . $requestBody->body . "',
                     '" . date('Y-m-d') . "',
                     '" . $requestBody->user_post . "')";
 
@@ -87,9 +87,9 @@ class PostsController implements PostsControllerInterface
         $queryParameters = getQueryParameters();
 
         $sql = "UPDATE `posts` 
-                SET `titlu` = '" . $requestBody->titlu . "',  
-                    `context` = '" . $requestBody->context . "',
-                    `data_modif_post` = '" . date('Y-m-d') . "'
+                SET `title` = '" . $requestBody->title . "',  
+                    `body` = '" . $requestBody->body . "',
+                    `date_modif_at` = '" . date('Y-m-d') . "'
                 WHERE `id_post` = '" . $queryParameters->id_post . "'";
 
         if (($id_post = $requestBody) != null) {
@@ -118,6 +118,13 @@ class PostsController implements PostsControllerInterface
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
             }
         }
+    }
+
+    public function getPostsfromUsers()
+    {
+
+
+
     }
 }
 

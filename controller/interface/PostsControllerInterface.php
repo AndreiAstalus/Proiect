@@ -12,4 +12,6 @@ interface PostsControllerInterface
 
     public function deletePosts();
 
+    public function getPostsfromUsers
+
 }
