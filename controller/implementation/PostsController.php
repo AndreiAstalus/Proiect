@@ -129,29 +129,42 @@ class PostsController implements PostsControllerInterface
         }
     }
 
-    // TODO: Sters din ambele tabele
+
     public function deletePosts()
     {
         $queryParameters = getQueryParameters();
 
-        $sql = "DELETE FROM `posts` WHERE `id` = '" . $queryParameters->id_post . "'";
+        try {
+            //Start transaction
+            $this->getConnection()->begin_transaction();
 
-        if (($id_post = ($queryParameters->id_post)) != null) {
-            if ($sqlQuery = $this->getConnection()->query($sql)) {
-                return null;
-            } else {
-                die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
+            //Query for post delete
+            if (!($query=$this->getConnection()->query(
+                "DELETE FROM `posts` WHERE `id` = '" . $queryParameters->id . "'"))) {
+
+                throw new Exception($query);
             }
+
+            //Query for delete user post association
+            if(!($query=$this->getConnection()->query(
+                "DELETE FROM `user_has_posts` WHERE `post_id` = '" . $queryParameters->id . "'"))){
+
+                throw new Exception($query);
+            }
+
+            //Commit transaction
+            $this->getConnection()->commit();
+            return json_encode(array('success'=>'deleted'));
+
+        } catch (Exception $exception){
+
+            //Rollback transaction
+            $this->getConnection()->rollback();
         }
     }
 
-    public function getPostsfromUsers()
-    {
-
-
-    }
 }
 
 $post = new PostsController();
 
-echo($post->postPosts());
+echo($post->deletePosts());
