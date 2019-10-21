@@ -36,9 +36,11 @@ class PostsController implements PostsControllerInterface
             die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
         }
     }
+
     public function getPost()
     {
         $queryParameters = getQueryParameters();
+        $result = null;
 
         if (($title = ($queryParameters->title)) != null) {
             $sql = "SELECT * FROM posts WHERE title = '" . $title . "'";
@@ -50,37 +52,59 @@ class PostsController implements PostsControllerInterface
                 // Close database connection
                 $sqlQuery->free();
 
-                // Return values
-                return $result;
             } else {
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
             }
         }
+
+        // Return values
+        return $result;
     }
+
     public function postPosts()
     {
         $requestBody = getRequestBody();
 
-        $sql = "INSERT INTO `posts`(`id_post`, `title`, `body`, `date_created_at`, `user_post`)
+        if ($requestBody == null) {
+            die("error: Please provide a post body");
+        }
+
+        try {
+            // Start transaction
+            $this->getConnection()->begin_transaction();
+
+            // Query for post insert
+            if (!($query = $this->getConnection()->query(
+                "INSERT INTO `posts`(`title`, `body`, `created_at`)
                     VALUES (
-                    '',
                     '" . $requestBody->title . "',
                     '" . $requestBody->body . "',
-                    '" . date('Y-m-d') . "',
-                    '" . $requestBody->user_post . "')";
+                    '" . date('Y-m-d') . "')"))) {
+                 var_dump($query);
 
-        if (($post = $requestBody) != null) {
-            if ($sqlQuery = $this->getConnection()->query($sql)) {
+                throw new Exception($query);
 
-                // Close database connection
-                $sqlQuery->free();
-
-                return $post;
-            } else {
-                die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
             }
+
+            // Query for insert user post association
+            if (!($query = $this->getConnection()->query(
+                "INSERT INTO `user_has_posts`(`user_id`, `post_id`)
+                            VALUES ('" . $requestBody->user_id . "',
+                                    '" . $this->getConnection()->insert_id . "')"))) {
+
+                throw new Exception($query);
+            }
+
+            // Commit Transaction
+            $this->getConnection()->commit();
+            return json_encode(array('success' => 'true'));
+        } catch (Exception $exception) {
+            // Rollback transaction
+
+            $this->getConnection()->rollback();
         }
     }
+
     public function updatePosts()
     {
         $requestBody = getRequestBody();
@@ -90,7 +114,7 @@ class PostsController implements PostsControllerInterface
                 SET `title` = '" . $requestBody->title . "',  
                     `body` = '" . $requestBody->body . "',
                     `date_modif_at` = '" . date('Y-m-d') . "'
-                WHERE `id_post` = '" . $queryParameters->id_post . "'";
+                WHERE `id` = '" . $queryParameters->id_post . "'";
 
         if (($id_post = $requestBody) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
@@ -105,11 +129,12 @@ class PostsController implements PostsControllerInterface
         }
     }
 
+    // TODO: Sters din ambele tabele
     public function deletePosts()
     {
         $queryParameters = getQueryParameters();
 
-        $sql = "DELETE FROM `posts` WHERE `id_post` = '" . $queryParameters->id_post . "'";
+        $sql = "DELETE FROM `posts` WHERE `id` = '" . $queryParameters->id_post . "'";
 
         if (($id_post = ($queryParameters->id_post)) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
@@ -124,9 +149,9 @@ class PostsController implements PostsControllerInterface
     {
 
 
-
     }
 }
 
 $post = new PostsController();
-vd($post->getPost());
+
+echo($post->postPosts());

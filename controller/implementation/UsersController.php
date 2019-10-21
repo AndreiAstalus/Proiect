@@ -64,7 +64,7 @@ class UsersController implements UsersControllerInterface
     {
         $requestBody = getRequestBody();
 
-        $sql = "INSERT INTO `user`(`id`, `username`, `password`, `date_user_created_at`)
+        $sql = "INSERT INTO `user`(`id`, `username`, `password`, `created_at`)
                     VALUES (
                     '',
                     '" . $requestBody->username . "',
@@ -126,4 +126,4 @@ class UsersController implements UsersControllerInterface
 }
 
 $user=new UsersController();
-vd($user->getUser());
+vd($user->postUsers());
