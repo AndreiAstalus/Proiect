@@ -1,9 +1,9 @@
 <?php
 
-require "../../configuration/MysqlConfiguration.php";
-require "../interface/UsersControllerInterface.php";
+require  "..\configuration\MysqlConfiguration.php";
+require "..\controller\interface\UsersControllerInterface.php";
 
-include "../../utils/Utils.php";
+include "..\utils\Utils.php";
 
 class UsersController implements UsersControllerInterface
 {
@@ -62,20 +62,21 @@ class UsersController implements UsersControllerInterface
 
     public function postUsers()
     {
-        $requestBody = getRequestBody();
+//        $requestBody = getRequestBody();
+        $username=$_GET['username'];
+        $password=$_GET['password'];
 
-        $sql = "INSERT INTO `user`(`id`, `username`, `password`, `created_at`)
+        $sql = "INSERT INTO `user`(`id`,`username`, `password`)
                     VALUES (
                     '',
-                    '" . $requestBody->username . "',
-                    '" . $requestBody->password . "',
-                    '" . date('Y-m-d') . "')";
+                    '" . $username . "',
+                    '" . $password . "')";
 
-        if (($user = $requestBody) != null) {
+        if (($user = $username) != null and ($pass = $password) !=null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
 
                 // Close database connection
-                $sqlQuery->free();
+//                $sqlQuery->free();
 
                 return $user;
             } else {
@@ -125,5 +126,5 @@ class UsersController implements UsersControllerInterface
 
 }
 
-$user=new UsersController();
-vd($user->postUsers());
+//$user=new UsersController();
+//vd($user->getUsers());
