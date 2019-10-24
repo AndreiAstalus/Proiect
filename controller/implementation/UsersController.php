@@ -63,8 +63,8 @@ class UsersController implements UsersControllerInterface
     public function postUsers()
     {
 //        $requestBody = getRequestBody();
-        $username=$_GET['username'];
-        $password=$_GET['password'];
+        $username=$_POST['username'];
+        $password=$_POST['password'];
 
         $sql = "INSERT INTO `user`(`id`,`username`, `password`)
                     VALUES (

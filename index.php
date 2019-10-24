@@ -13,7 +13,7 @@ session_start();
 <button id="get" onclick="getUsers()">Get all users</button>
 <br><br>
 
-<form action="utils/Postusers.php">
+<form action="utils/Postusers.php" method="post">
     Username:<br>
     <input type="text" name="username"><br>
     Password:<br>
