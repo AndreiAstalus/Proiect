@@ -92,9 +92,6 @@ class UsersController implements UsersControllerInterface
         if (($user = $requestBody) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
 
-                // Close database connection
-                $sqlQuery->free();
-
                 return $user;
             } else {
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
