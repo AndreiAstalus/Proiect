@@ -3,7 +3,7 @@
 require "../../configuration/MysqlConfiguration.php";
 require "../interface/PostsControllerInterface.php";
 
-include "../../utils/Utils.php";
+include "../../utils/utils.php";
 
 class PostsController implements PostsControllerInterface
 {

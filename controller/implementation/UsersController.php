@@ -1,9 +1,9 @@
 <?php
 
-require  "..\configuration\MysqlConfiguration.php";
-require "..\controller\interface\UsersControllerInterface.php";
+require "../../configuration/MysqlConfiguration.php";
+require "../../controller/interface/UsersControllerInterface.php";
 
-include "..\utils\Utils.php";
+include "../../utils/Utils.php";
 
 class UsersController implements UsersControllerInterface
 {
@@ -62,22 +62,16 @@ class UsersController implements UsersControllerInterface
 
     public function postUsers()
     {
-//        $requestBody = getRequestBody();
-        $username=$_POST['username'];
-        $password=$_POST['password'];
+        $requestBody = getRequestBody();
 
         $sql = "INSERT INTO `user`(`id`,`username`, `password`)
                     VALUES (
                     '',
-                    '" . $username . "',
-                    '" . $password . "')";
+                    '" . $requestBody->username . "',
+                    '" . $requestBody->password . "')";
 
-        if (($user = $username) != null and ($pass = $password) !=null) {
+        if (($user = $requestBody->username) != null and ($pass = $requestBody->password) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
-
-                // Close database connection
-//                $sqlQuery->free();
-
                 return $user;
             } else {
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
