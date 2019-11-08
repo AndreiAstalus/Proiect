@@ -101,11 +101,13 @@ class UsersController implements UsersControllerInterface
 
     public function deleteUsers()
     {
-        $queryParameters = getQueryParameters();
+        $requestBody = getRequestBody();
 
-        $sql = "DELETE FROM `user` WHERE `username` = '" . $queryParameters->username . "'";
+        $sql = "DELETE FROM `user` WHERE 
+                    `username` = '" . $requestBody->username . "'
+                AND `password` = '" . $requestBody->password . "'";
 
-        if (($username = ($queryParameters->username)) != null) {
+        if (($username = ($requestBody->username)) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
                 return null;
             } else {

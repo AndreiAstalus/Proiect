@@ -12,62 +12,105 @@ session_start();
     <!-- javascript -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/users.js"></script>
+    <script src="js/login.js"></script>
 
 </head>
 <br>
+<body>
 
-Get all users:
+Log In:
 
-<button id="get" onclick="getUsers()">Get all users</button>
-<br><br>
-
-Create a new user:
 <br><br>
 
 <label>Username:</label>
-<input type="text" name="username" id="form_username" value="">
+<input type="text" name="username" id="check_username" value="">
 
 <br><br>
 
 <label>Password:</label>
-<input type="password" name="password" id="form_password" value="">
+<input type="password" name="password" id="check_password" value="">
 
 <br><br>
 
-<input id="create_user" type="button" value="Create user">
+<input id="check_user" type="button" value="Log In">
 
 <br><br>
-
-Update user:
-
-<br><br>
-
-<label>New username:</label>
-<input type="text" name="username1" id="form_new_username" value="">
-
-<br><br>
-
-<label>New password:</label>
-<input type="password" name="password2" id="form_new_password" value="">
-
-<br><br>
-
-<label>Old username:</label>
-<input type="text" name="username3" id="form_old_username" value="">
-
-<br><br>
-
-<input id="update_user" type="button" value="Update user">
 
 </body>
 </html>
 
-<script>
-
-    function getUsers() {
-        window.location = "api/users/Get.php";
-    }
-</script>
+<!--Get all users:-->
+<!---->
+<!--<button id="get" onclick="getUsers()">Get all users</button>-->
+<!--<br><br>-->
+<!---->
+<!--Create a new user:-->
+<!--<br><br>-->
+<!---->
+<!--<label>Username:</label>-->
+<!--<input type="text" name="username" id="form_username" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<label>Password:</label>-->
+<!--<input type="password" name="password" id="form_password" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<input id="create_user" type="button" value="Create user">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--Update user:-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<label>New username:</label>-->
+<!--<input type="text" name="username" id="form_new_username" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<label>New password:</label>-->
+<!--<input type="password" name="password" id="form_new_password" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<label>Old username:</label>-->
+<!--<input type="text" name="username" id="form_old_username" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<input id="update_user" type="button" value="Update user">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--Delete user:-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<label>Username:</label>-->
+<!--<input type="text" name="username" id="delete_username" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<label>Password:</label>-->
+<!--<input type="password" name="password" id="delete_password" value="">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--<input id="delete_user" type="button" value="Delete user">-->
+<!---->
+<!--<br><br>-->
+<!---->
+<!--</body>-->
+<!--</html>-->
+<!---->
+<!--<script>-->
+<!---->
+<!--    function getUsers() {-->
+<!--        window.location = "api/users/Get.php";-->
+<!--    }-->
+<!--</script>-->
 
 
 
