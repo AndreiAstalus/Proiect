@@ -1,6 +1,7 @@
 <?php
 
 require "../../configuration/MysqlConfiguration.php";
+require "../../service/SessionService.php";
 
 include "../../utils/Utils.php";
 
@@ -22,27 +23,29 @@ class LoginController
     {
         $requestBody = getRequestBody();
 
-        if (($username = ($requestBody->username) and $password =($requestBody->password)) != null) {
-            $sql = "SELECT id FROM user WHERE(
-                         `username` = '" . $username . "'
-                         AND `password` = '". $password . "')";
+        if (($requestBody->username && $requestBody->password) != null) {
+            $sql = "SELECT * FROM user WHERE(
+                         `username` = '" . $requestBody->username . "'
+                         AND `password` = '" . generatePassword($requestBody->password) . "')";
 
             if ($sqlQuery = $this->getConnection()->query($sql)) {
                 // Get query result values
                 $rows = $sqlQuery->num_rows;
 
-//                // Return values
-//                return $result;
-
-                if($rows==1){
-                    echo ("Login");
-                }
-                else{
-                    echo "Error" . $rows ;
+                if ($rows == 1) {
+                    SessionService::setUserSession($sqlQuery->fetch_all());
+                    echo "Login";
+                } else {
+                    echo "Error" . $rows;
                 }
             } else {
                 die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
             }
         }
+    }
+
+    public function logout()
+    {
+        SessionService::removeUserSession();
     }
 }
