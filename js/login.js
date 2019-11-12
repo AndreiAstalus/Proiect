@@ -11,16 +11,33 @@ $(document).ready(function () {
             }),
 
             success: function (data) {
-                if(data.trim()==='Login'){
-                    location.href='view/Control.php';
-                } else {
-                    alert('Invalid Credentials');
-                    console.log(data);
-                }
+                location.href = 'view/Control.php';
+            },
+            error: function (error) {
+                alert('Invalid Credentials');
+                console.log(error);
+            }
+        });
+    });
+
+    $("#logout").click(function () {
+        console.log("here");
+
+        $.ajax({
+            contentType: "application/json",
+            type: "POST",
+            url: '../api/users/Logout.php',
+            data: JSON.stringify({
+                username: $("#check_username").val(),
+                password: $("#check_password").val(),
+            }),
+            success: function () {
+                location.href = '../index.php';
             },
             error: function (error) {
                 console.log(error);
             }
         });
     });
+
 });
