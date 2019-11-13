@@ -17,3 +17,8 @@ function getQueryParameters()
     return json_decode(json_encode($_GET), FALSE);
 }
 
+
+function generatePassword($password)
+{
+    return md5($password);
+}

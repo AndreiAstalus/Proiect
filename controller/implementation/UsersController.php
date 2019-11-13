@@ -68,7 +68,7 @@ class UsersController implements UsersControllerInterface
                     VALUES (
                     '',
                     '" . $requestBody->username . "',
-                    '" . $requestBody->password . "')";
+                    '" . generatePassword($requestBody->password) . "')";
 
         if (($user = $requestBody->username) != null and ($pass = $requestBody->password) != null) {
             if ($sqlQuery = $this->getConnection()->query($sql)) {
@@ -86,7 +86,7 @@ class UsersController implements UsersControllerInterface
 
         $sql = "UPDATE `user` 
                 SET `username` = '" . $requestBody->username . "',  
-                    `password` = '" . $requestBody->password . "'
+                    `password` = '" . generatePassword($requestBody->password) . "'
                 WHERE `username` = '" . $queryParameters->username . "'";
 
         if (($user = $requestBody) != null) {

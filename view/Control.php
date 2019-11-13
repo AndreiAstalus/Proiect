@@ -1,3 +1,9 @@
+<?php
+    require "../hook/AuthHook.php";
+
+    $auth = new AuthHook();
+    $auth->checkAuth();
+?>
 
 <html lang="en">
 
@@ -8,6 +14,7 @@
     <!-- javascript -->
     <script src="../js/jquery-3.4.1.min.js"></script>
     <script src="../js/users.js"></script>
+    <script src="../js/login.js"></script>
 
 </head>
 <br>
@@ -74,13 +81,18 @@ Delete user:
 
 <input id="delete_user" type="button" value="Delete user">
 
+<br><br><br><br><br><br><br>
+
+
+<input id="logout" type="button" value="Logout">
+
 <br><br>
+
 
 </body>
 </html>
 
 <script>
-
     function getUsers() {
         window.location = "../api/users/Get.php";
     }
