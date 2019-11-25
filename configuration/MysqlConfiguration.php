@@ -8,7 +8,7 @@ class MysqlConfiguration
     {
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "andi";
         $dbname = "db";
         $this->connection = mysqli_connect($servername, $username, $password, $dbname);
     }

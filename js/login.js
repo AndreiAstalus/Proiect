@@ -10,11 +10,11 @@ $(document).ready(function () {
                 password: $("#check_password").val(),
             }),
 
-            success: function (data) {
+            success: function (response) {
                 location.href = 'view/Control.php';
+
             },
             error: function (error) {
-                alert('Invalid Credentials');
                 console.log(error);
             }
         });

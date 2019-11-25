@@ -60,6 +60,27 @@ class UsersController implements UsersControllerInterface
         }
     }
 
+    public function getId()
+    {
+        $requestBody = getRequestBody();
+
+        if (($username = ($requestBody->username)) != null) {
+            $sql = "SELECT id FROM user WHERE username = '" . $username . "'";
+
+            if ($sqlQuery = $this->getConnection()->query($sql)) {
+                // Get query result values
+                $result = $sqlQuery->fetch_row();
+
+                echo $result[0];
+                // Return values
+                return $result;
+            } else {
+                die("error: " . $sql . "<br>" . $sqlQuery = $this->getConnection()->error);
+            }
+        }
+    }
+
+
     public function postUsers()
     {
         $requestBody = getRequestBody();

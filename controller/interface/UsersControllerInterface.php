@@ -6,6 +6,8 @@ interface UsersControllerInterface
 
     public function getUser();
 
+    public function getId();
+
     public function postUsers();
 
     public function putUsers();

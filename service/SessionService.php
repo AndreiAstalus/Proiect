@@ -17,7 +17,6 @@ class SessionService
         $user->setCreatedAt($userData[0][3]);
 
         $_SESSION["loggedUser"] = $user;
-
         echo "Session has been set.";
     }
 

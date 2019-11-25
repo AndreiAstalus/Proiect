@@ -31,9 +31,11 @@ class LoginController
             if ($sqlQuery = $this->getConnection()->query($sql)) {
                 // Get query result values
                 $rows = $sqlQuery->num_rows;
+                $row = $sqlQuery->fetch_all();
 
                 if ($rows == 1) {
                     SessionService::setUserSession($sqlQuery->fetch_all());
+                    $_SESSION['username']=$row[0][6];
                     echo "Login";
                 } else {
                     echo "Error" . $rows;

@@ -3,6 +3,12 @@
 
     $auth = new AuthHook();
     $auth->checkAuth();
+
+if (!empty($_SESSION['message2'])) {
+    echo '<p class="message"> '.$_SESSION['message2'].'</p>';
+    unset($_SESSION['message2']);
+}
+
 ?>
 
 <html lang="en">
@@ -23,6 +29,19 @@
 Get all users:
 
 <button id="get" onclick="getUsers()">Get all users</button>
+<br><br>
+
+Get user id:
+<br><br>
+<input type="text" name="username_for_id" id="username_for_id" value="">
+
+<br><br>
+<input id="get_user_id" type="button" value="Get user id">
+
+<br><br>
+
+<div id="get_id"></div>
+
 <br><br>
 
 Create a new user:
@@ -81,8 +100,21 @@ Delete user:
 
 <input id="delete_user" type="button" value="Delete user">
 
-<br><br><br><br><br><br><br>
+<br><br>
+Create forum moderator (by inserting user id):
+<br><br>
 
+<input type="text" name="moderator_id" id="moderator_id" value="">
+
+<br><br>
+
+<input id="create_moderator" type="button" value="Create moderator">
+
+<br><br>
+
+<div id="return_message_for_moderator"></div>
+
+<br><br>
 
 <input id="logout" type="button" value="Logout">
 
