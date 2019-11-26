@@ -32,10 +32,11 @@ class LoginController
                 // Get query result values
                 $rows = $sqlQuery->num_rows;
                 $row = $sqlQuery->fetch_all();
-
+                // Check if returned values are correct and start user session
                 if ($rows == 1) {
                     SessionService::setUserSession($sqlQuery->fetch_all());
                     $_SESSION['username']=$row[0][6];
+                    $_SESSION['logged_user_id']=$row[0][0];
                     echo "Login";
                 } else {
                     echo "Error" . $rows;
@@ -48,6 +49,7 @@ class LoginController
 
     public function logout()
     {
+        // Remove user session and return to index
         SessionService::removeUserSession();
     }
 }
